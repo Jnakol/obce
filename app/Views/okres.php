@@ -1,0 +1,68 @@
+<?php 
+echo($this->extend('Layout/template'));
+echo($this->section('content'));
+?>
+<div class="row">
+    <h1 class="my-3"></h1>
+</div>
+
+<?php
+$parametr = service('uri')->getSegment(2);
+?>
+<h4>Počet stránek na stránku</h4>
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link" href="<?= base_url('okres/' . $parametr) . "/10"; ?>">10</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<?= base_url('okres/' . $parametr) . "/20"; ?>">20</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<?= base_url('okres/' . $parametr) . "/50"; ?>">50</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<?= base_url('okres/' . $parametr) . "/100"; ?>">100</a>
+  </li>
+</ul>
+
+<?php
+$table = new \CodeIgniter\View\Table();
+$template = array(
+    'table_open'=> '<table class="table table-border table-hover text-center">',
+    'thead_open'=> '<thead>',
+    'thead_close'=> '</thead>',
+    'heading_row_start'=> '<tr>',
+    'heading_row_end'=>' </tr>',
+    'heading_cell_start'=> '<th class="h6">',
+    'heading_cell_end' => '</th>',
+    'tbody_open' => '<tbody>',
+    'tbody_close' => '</tbody>',
+    'row_start' => '<tr>',
+    'row_end'  => '</tr>',
+    'cell_start' => '<td>',
+    'cell_end' => '</td>',
+    'row_alt_start' => '<tr>',
+    'row_alt_end' => '</tr>',
+    'cell_alt_start' => '<td>',
+    'cell_alt_end' => '</td>',
+    'table_close' => '</table>'
+    );
+    $table->setTemplate($template);
+$table->setHeading('Pořadí', 'Název obce', 'Počet adresních míst');
+
+$poradi = 1;
+foreach($obceData as $row) {
+    $table->addRow($poradi, $row->nazev, $row->pocet_adresnich_mist);
+    $poradi++;
+}
+?>
+<div class="row my-3">
+    <div class="col-sm-8 mx-auto">
+    <?php
+        echo $table->generate();
+        echo $pager->links();
+    ?>
+
+    </div>
+</div>
+<?= $this->endSection(); ?>

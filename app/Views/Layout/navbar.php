@@ -6,12 +6,12 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="<?= base_url(''); ?>">Nic speciálního</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('index.php/kardi'); ?>">tady stanice su</a>
-          </li>
+        <?php  
+        foreach ($navbar as $row) {
+          echo ('<li class="nav-item">'
+          .anchor('okres/' . $row->kod, $row->nazev, ['class' => 'nav-link'])
+          .'</li>');}    
+          ?>
         </ul>
       </div>
     </div>
