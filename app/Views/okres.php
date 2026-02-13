@@ -6,22 +6,20 @@ echo($this->section('content'));
     <h1 class="my-3"></h1>
 </div>
 
-<?php
-$parametr = service('uri')->getSegment(2);
-?>
+<?php $parametr = service('uri')->getSegment(2); ?>
 <h4>Počet stránek na stránku</h4>
 <ul class="nav">
   <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('okres/' . $parametr) . "/10"; ?>">10</a>
+    <?= anchor('okres/' . $okres . '/str/10', "10", ['class' => 'nav-link']) ?>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('okres/' . $parametr) . "/20"; ?>">20</a>
+    <?= anchor('okres/' . $okres . '/str/20', "20", ['class' => 'nav-link']) ?>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('okres/' . $parametr) . "/50"; ?>">50</a>
+    <?= anchor('okres/' . $okres . '/str/50', "50", ['class' => 'nav-link']) ?>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('okres/' . $parametr) . "/100"; ?>">100</a>
+    <?= anchor('okres/' . $okres . '/str/100', "100", ['class' => 'nav-link']) ?>
   </li>
 </ul>
 
@@ -54,15 +52,13 @@ $poradi = 1;
 foreach($obceData as $row) {
     $table->addRow($poradi, $row->nazev, $row->pocet_adresnich_mist);
     $poradi++;
-}
-?>
+}?>
 <div class="row my-3">
     <div class="col-sm-8 mx-auto">
-    <?php
-        echo $table->generate();
-        echo $pager->links();
-    ?>
-
+        <?php
+            echo $table->generate();
+            echo $pager->links();
+        ?>
     </div>
 </div>
 <?= $this->endSection(); ?>

@@ -16,6 +16,7 @@ class Main extends BaseController
     private $obce;
     private $okres;
     private $data;
+    private $stranek;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -27,16 +28,20 @@ class Main extends BaseController
             ->findAll();
 
         $this->okres = new Okres();
+        
+        $stranek = 20;
+        $this->stranek = $stranek;
 
         $this->data = [
-            'navbar' => $navbar
+            'navbar' => $navbar,
+            'stranky' => $stranek,
         ];
     }
     public function index()
     {
         echo view('hlavni', $this->data);
     }
-    public function okres($id, $pager = 20)
+    public function okres($id, $str)
     {
 
         $obceData = $this->okres->join('obec', 'okres.kod = obec.okres')
@@ -47,14 +52,13 @@ class Main extends BaseController
             ->groupBy('obec.kod')
             ->where('okres.kod', $id)
             ->orderBy('pocet_adresnich_mist', 'desc')
-            ->paginate($pager);
-
-        $pager = $this->okres->pager;
-
-
+            ->paginate($str);
+        
+        $this->stranek = $str;
         $this->data += [
             'obceData' => $obceData,
-            'pager' => $this->okres->pager
+            'pager' => $this->okres->pager,
+            'okres' => $id,
         ];
         echo view('okres', $this->data);
     }

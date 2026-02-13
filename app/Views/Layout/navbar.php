@@ -9,7 +9,7 @@
         <?php  
         foreach ($navbar as $row) {
           echo ('<li class="nav-item">'
-          .anchor('okres/' . $row->kod, $row->nazev, ['class' => 'nav-link'])
+          .anchor('okres/' . $row->kod . '/str/' . $stranky, $row->nazev, ['class' => 'nav-link'])
           .'</li>');}    
           ?>
         </ul>
