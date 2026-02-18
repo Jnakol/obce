@@ -7,7 +7,7 @@ echo($this->section('content'));
 </div>
 
 <?php $parametr = service('uri')->getSegment(2); ?>
-<h4>Počet stránek na stránku</h4>
+<h4>Počet stránek na řádek</h4>
 <ul class="nav">
   <li class="nav-item">
     <?= anchor('okres/' . $okres . '/str/10', "10", ['class' => 'nav-link']) ?>
@@ -50,15 +50,13 @@ $table->setHeading('Pořadí', 'Název obce', 'Počet adresních míst');
 
 $poradi = 1;
 foreach($obceData as $row) {
-    $table->addRow($poradi, $row->nazev, $row->pocet_adresnich_mist);
+    $table->addRow(($page - 1) * $page + $poradi, $row->nazev, $row->pocet_adresnich_mist);
     $poradi++;
 }?>
 <div class="row my-3">
     <div class="col-sm-8 mx-auto">
-        <?php
-            echo $table->generate();
-            echo $pager->links();
-        ?>
+        <div class="row"><?php echo $table->generate();?></div>
+        <div class="row mt-5 "><?php echo $pager->links();?></div>
     </div>
 </div>
 <?= $this->endSection(); ?>
