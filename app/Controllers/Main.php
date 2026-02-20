@@ -37,28 +37,13 @@ class Main extends BaseController
             'stranky' => $stranek,
         ];
     }
-    public function index($str)
-    
-        $krajData = $this->kraj->join('okres', 'kraj.kod = okres.kraj')
-            ->join('obec', 'okres.kod = obec.okres')
-            ->join('cast_obce', 'obec.kod = cast_obce.obec')
-            ->join('ulice', 'cast_obce.kod = ulice.cast_obce')
-            ->join('adresni_misto', 'ulice.kod = adresni_misto.ulice')
-            ->select('obec.nazev, COUNT(*) AS pocet_adresnich_mist')
-            ->groupBy('obec.kod')
-            ->where('kraj.kod', '141')
-            ->orderBy('pocet_adresnich_mist', 'desc')
-            ->paginate($str);
-            
+    public function index(){
         $this->data += [
-            'krajData' => $krajData,
             'pager' => $this->kraj->pager,
         ];
         echo view('hlavni', $this->data);
     }
-    public function okres($id, $str)
-    {
-
+    public function okres($id, $str){
         $obceData = $this->okres->join('obec', 'okres.kod = obec.okres')
             ->join('cast_obce', 'obec.kod = cast_obce.obec')
             ->join('ulice', 'cast_obce.kod = ulice.cast_obce')
@@ -77,5 +62,25 @@ class Main extends BaseController
             'page' => $this->okres->pager->getCurrentPage(),
         ];
         echo view('okres', $this->data);
+    }
+    public function Kraj($str){
+        $krajData = $this->kraj->join('okres', 'kraj.kod = okres.kraj')
+            ->join('obec', 'okres.kod = obec.okres')
+            ->join('cast_obce', 'obec.kod = cast_obce.obec')
+            ->join('ulice', 'cast_obce.kod = ulice.cast_obce')
+            ->join('adresni_misto', 'ulice.kod = adresni_misto.ulice')
+            ->select('obec.nazev, COUNT(*) AS pocet_adresnich_mist')
+            ->groupBy('obec.kod')
+            ->orderBy('pocet_adresnich_mist', 'desc')
+            ->paginate($str);
+        
+        $this->stranek = $str;
+        $this->data += [
+            'krajData' => $krajData,
+            'pager' => $this->kraj->pager,
+            'page' => $this->kraj->pager->getCurrentPage(),
+        ];
+        echo view('kraj', $this->data);
+
     }
 }
