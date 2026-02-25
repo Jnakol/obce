@@ -6,6 +6,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav me-auto">
+          <li class="nav-item"><?= anchor('kraj/20', 'Kraj', ['class' => 'nav-link']) ?></li>
         <?php  
         foreach ($navbar as $row) {
           echo ('<li class="nav-item">'

@@ -79,6 +79,7 @@ class Main extends BaseController
             'krajData' => $krajData,
             'pager' => $this->kraj->pager,
             'page' => $this->kraj->pager->getCurrentPage(),
+            'stranky' => $str,
         ];
         echo view('kraj', $this->data);
 

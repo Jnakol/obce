@@ -53,7 +53,7 @@ $table->setHeading('Pořadí', 'Název obce', 'Počet adresních míst');
 
 $poradi = 1;
 foreach($krajData as $row) {
-    $table->addRow(($page - 1) * $page + $poradi, $row->nazev, $row->pocet_adresnich_mist);
+    $table->addRow(($page - 1) * $stranky + $poradi, $row->nazev, $row->pocet_adresnich_mist);
     $poradi++;
 }?>
 <div class="row my-3">
