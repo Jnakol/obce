@@ -74,12 +74,11 @@ class Main extends BaseController
             ->orderBy('pocet_adresnich_mist', 'desc')
             ->paginate($str);
         
-        $this->stranek = $str;
         $this->data += [
             'krajData' => $krajData,
             'pager' => $this->kraj->pager,
             'page' => $this->kraj->pager->getCurrentPage(),
-            'stranky' => $str,
+            'str' => $str,
         ];
         echo view('kraj', $this->data);
 
